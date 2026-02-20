@@ -12,7 +12,7 @@
     <Copyright>Copyright (c) Yngve J. K. Hestem 2026</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>crossword, word puzzles, puzzles, word, word games, games</PackageTags>
-    <RepositoryUrl></RepositoryUrl> 
+    <RepositoryUrl>https://github.com/HeruEwasham/Crossword/</RepositoryUrl> 
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
