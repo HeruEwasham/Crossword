@@ -17,11 +17,11 @@ namespace YngveHestem.Crosswords
         /// <summary>
         /// The words you want to place on the board. The generator will try to use as many as it can, but based on the words it may not be able to fit all.
         /// </summary>
-        public List<WordWithInfo> Words;
+        public List<WordWithHint> Words;
 
         /// <summary>
         /// A glossary of words. This glossary need to at least contain all the words that should be placed on the board. The generator uses this to be sure all words it generates are legal. Importing words from a dictionary in a given language would be a good suggestion.
         /// </summary>
-        public List<WordWithInfo> Glossary;
+        public List<WordWithHints> Glossary;
     }
 }

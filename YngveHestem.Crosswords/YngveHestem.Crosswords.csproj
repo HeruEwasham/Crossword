@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     
-    <Version>0.0.1-beta01</Version>
+    <Version>0.0.1-beta02</Version>
     <Description>This is a generator to generate crosswords.</Description>
     <PackageReleaseNotes>
         - Initial release

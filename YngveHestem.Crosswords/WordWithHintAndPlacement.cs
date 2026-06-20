@@ -1,7 +1,7 @@
 ﻿using System;
 namespace YngveHestem.Crosswords
 {
-	public class WordWithInfoAndPlacement : WordWithInfo
+	public class WordWithHintAndPlacement : WordWithHint
 	{
 		/// <summary>
 		/// The X-position (column) of the first letter.
@@ -18,7 +18,7 @@ namespace YngveHestem.Crosswords
 		/// </summary>
 		public Orientation WordOrientation { get; }
 
-		internal WordWithInfoAndPlacement(string word, string hint, Tuple<int, int, Orientation> placementInfo) : base(word, hint)
+		internal WordWithHintAndPlacement(string word, string hint, Tuple<int, int, Orientation> placementInfo) : base(word, hint)
 		{
 			PosX = placementInfo.Item1;
 			PosY = placementInfo.Item2;

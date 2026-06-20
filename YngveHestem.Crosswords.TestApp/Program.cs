@@ -7,30 +7,30 @@ class Program
 {
     static void Main(string[] args)
     {
-        var words = new List<WordWithInfo>
+        var words = new List<WordWithHint>
         {
-            new WordWithInfo("bord", "A furniture"),
-            new WordWithInfo("sofa", "Something to sit on"),
-            new WordWithInfo("seng", "Somewhere to sleep"),
-            new WordWithInfo("frokost", "A meal"),
-            new WordWithInfo("Ny", "A train-company"),
-            new WordWithInfo("Vinter", "A season"),
-            new WordWithInfo("Vin", "A form of drink"),
-            new WordWithInfo("Entrecote", "Meat"),
-            new WordWithInfo("singel", "Alone"),
-            new WordWithInfo("Revy", "A name"),
-            new WordWithInfo("fylling", "Full"),
-            new WordWithInfo("full", "Doing something"),
-            new WordWithInfo("Urfolk", "Indianer"),
-            new WordWithInfo("folk", "People"),
-            new WordWithInfo("tidning", "Wheater"),
-            new WordWithInfo("transport", "taxi"),
-            new WordWithInfo("taxi", "transport"),
-            new WordWithInfo("liste", "Writing"),
-            new WordWithInfo("vertikal", "Orientation"),
-            new WordWithInfo("Rist", "t"),
-            new WordWithInfo("Vinne", "Beating"),
-            new WordWithInfo("amalgamplombe", "Tannlege")
+            new WordWithHint("bord", "A furniture"),
+            new WordWithHint("sofa", "Something to sit on"),
+            new WordWithHint("seng", "Somewhere to sleep"),
+            new WordWithHint("frokost", "A meal"),
+            new WordWithHint("Ny", "A train-company"),
+            new WordWithHint("Vinter", "A season"),
+            new WordWithHint("Vin", "A form of drink"),
+            new WordWithHint("Entrecote", "Meat"),
+            new WordWithHint("singel", "Alone"),
+            new WordWithHint("Revy", "A name"),
+            new WordWithHint("fylling", "Full"),
+            new WordWithHint("full", "Doing something"),
+            new WordWithHint("Urfolk", "Indianer"),
+            new WordWithHint("folk", "People"),
+            new WordWithHint("tidning", "Wheater"),
+            new WordWithHint("transport", "taxi"),
+            new WordWithHint("taxi", "transport"),
+            new WordWithHint("liste", "Writing"),
+            new WordWithHint("vertikal", "Orientation"),
+            new WordWithHint("Rist", "t"),
+            new WordWithHint("Vinne", "Beating"),
+            new WordWithHint("amalgamplombe", "Tannlege")
         };
         var glossary = CreateGlossaryFromLineSeparatedFile("/Users/yngvehestem/Downloads/nsf2022.txt");
         var crossword = Crossword.Generate(new CrosswordOptions
@@ -289,13 +289,13 @@ class Program
         Console.ReadLine();
     }
 
-    private static List<WordWithInfo> CreateGlossaryFromLineSeparatedFile(string filePath)
+    private static List<WordWithHints> CreateGlossaryFromLineSeparatedFile(string filePath)
     {
-        var result = new List<WordWithInfo>();
+        var result = new List<WordWithHints>();
         var content = File.ReadAllLines(filePath);
         foreach(var line in content)
         {
-            result.Add(new WordWithInfo(line.Trim(), string.Empty));
+            result.Add(new WordWithHints(line.Trim(), string.Empty));
         }
         return result;
     }

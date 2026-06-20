@@ -1,6 +1,6 @@
 ﻿namespace YngveHestem.Crosswords
 {
-    public class WordWithInfo
+    public class WordWithHint
     {
         /// <summary>
         /// The word.
@@ -12,7 +12,7 @@
         /// </summary>
         public string Hint { get; }
 
-        public WordWithInfo(string word, string hint)
+        public WordWithHint(string word, string hint)
         {
             Word = word.ToUpper();
             Hint = hint;

@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 namespace YngveHestem.Crosswords
 {
 	public static class Extensions
 	{
+        internal static ThreadLocal<Random> Random = new ThreadLocal<Random>();
+
 		public static string ToString(this char[,] chars, string delimeterColumn, string delimeterRow, bool delimeterColumnShouldStartBeforeFirstColumnInRow = false, bool delimeterRowShouldStartBeforeFirstRow = false, bool delimeterColumnShouldBeSetBeforeNewRow = false, bool delimeterRowShouldBeSetAfterLastRow = false)
 		{
             var result = string.Empty;
@@ -32,6 +37,16 @@ namespace YngveHestem.Crosswords
                 result += delimeterRow;
             }
             return result;
+        }
+
+        public static List<WordWithHint> ToWordWithHintList(this IEnumerable<WordWithHints> wordWithHints)
+        {
+            return wordWithHints.Select(w => w.ToWordWithHint()).ToList();
+        }
+
+        public static WordWithHint[] ToWordWithHintArray(this IEnumerable<WordWithHints> wordWithHints)
+        {
+            return wordWithHints.Select(w => w.ToWordWithHint()).ToArray();
         }
 	}
 }

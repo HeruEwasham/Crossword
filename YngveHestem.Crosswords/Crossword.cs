@@ -28,10 +28,10 @@ namespace YngveHestem.Crosswords
         public int BoardHeight { get => _filledBoard.GetLength(1); }
 
         private readonly char[,] _filledBoard;
-        private readonly List<WordWithInfo> _words;
+        private readonly List<WordWithHint> _words;
         private readonly Dictionary<string, Tuple<int, int, Orientation>> _wordPlacement;
 
-        private Crossword(char[,] filledBoard, List<WordWithInfo> words, Dictionary<string, Tuple<int, int, Orientation>> wordPlacement)
+        private Crossword(char[,] filledBoard, List<WordWithHint> words, Dictionary<string, Tuple<int, int, Orientation>> wordPlacement)
         {
             _filledBoard = filledBoard;
             _words = words;
@@ -54,12 +54,12 @@ namespace YngveHestem.Crosswords
         /// Get a list of the words in the crossword, including the position and orientation in the puzzle.
         /// </summary>
         /// <returns></returns>
-        public List<WordWithInfoAndPlacement> GetWords()
+        public List<WordWithHintAndPlacement> GetWords()
         {
-            var result = new List<WordWithInfoAndPlacement>();
+            var result = new List<WordWithHintAndPlacement>();
             foreach(var word in _words)
             {
-                result.Add(new WordWithInfoAndPlacement(word.Word, word.Hint, _wordPlacement[word.Word]));
+                result.Add(new WordWithHintAndPlacement(word.Word, word.Hint, _wordPlacement[word.Word]));
             }
             return result;
         }
@@ -158,7 +158,7 @@ namespace YngveHestem.Crosswords
         /// <param name="charOptions">>The character options.</param>
         /// <param name="crosswordOptions">The crossword-options. This need to be the same settings as used when the board was drawn for the characters to draw correctly.</param>
         /// <returns>True if all characters has been drawn correctly.</returns>
-        public bool DrawWord(ICanvas canvas, WordWithInfoAndPlacement word, DrawCharactersOptions charOptions, DrawCrosswordOptions crosswordOptions)
+        public bool DrawWord(ICanvas canvas, WordWithHintAndPlacement word, DrawCharactersOptions charOptions, DrawCrosswordOptions crosswordOptions)
         {
             if (word == null)
             {
@@ -366,8 +366,8 @@ namespace YngveHestem.Crosswords
             var gridColumnWidth = CalculateCellSize(options.Width, options.LineThickness, BoardWidth);
             var gridColumnHeight = CalculateCellSize(options.Height, options.LineThickness, BoardHeight);
             var wordsByPlacement = GetWords().OrderBy(x => x.PosX).ThenBy(x => x.PosY).ToArray();
-            var resultHorizontal = new Dictionary<int, WordWithInfoAndPlacement>();
-            var resultVertical = new Dictionary<int, WordWithInfoAndPlacement>();
+            var resultHorizontal = new Dictionary<int, WordWithHintAndPlacement>();
+            var resultVertical = new Dictionary<int, WordWithHintAndPlacement>();
 
             var writtenNumber = 1;
             for (var i = 0; i < wordsByPlacement.Length; i++)
@@ -487,7 +487,7 @@ namespace YngveHestem.Crosswords
             return new Crossword(filledBoard, options.Words.Where(w => wordPlacement.Keys.Contains(w.Word)).ToList(), wordPlacement);
         }
 
-        private static char[,] PlaceWordsOnBoard(char[,] board, string[] sortedWords, List<WordWithInfo> glossary, out Dictionary<string, Tuple<int, int, Orientation>> wordIndex)
+        private static char[,] PlaceWordsOnBoard(char[,] board, string[] sortedWords, List<WordWithHints> glossary, out Dictionary<string, Tuple<int, int, Orientation>> wordIndex)
         {
             var tempBoard = (char[,])board.Clone();
             var wordsInQueue = new Queue<string>(sortedWords);
@@ -516,7 +516,7 @@ namespace YngveHestem.Crosswords
             return tempBoard;
         }
 
-        private static Tuple<int, int, Orientation> PlaceWord(char[,] board, string word, List<WordWithInfo> glossary, Dictionary<string, Tuple<int, int, Orientation>> wordIndex)
+        private static Tuple<int, int, Orientation> PlaceWord(char[,] board, string word, List<WordWithHints> glossary, Dictionary<string, Tuple<int, int, Orientation>> wordIndex)
         {
             var possibleCrossingPositions = FindPossibleCrossingPositions(board, word, wordIndex);
             var validStartPositions = ValidateCrossings(possibleCrossingPositions, board, word, glossary, wordIndex);
@@ -532,7 +532,7 @@ namespace YngveHestem.Crosswords
             }
         }
 
-        private static List<Tuple<int, int, Orientation, int>> ValidateCrossings(List<Tuple<int, int>> possibleCrossingPositions, char[,] board, string word, List<WordWithInfo> glossary, Dictionary<string, Tuple<int, int, Orientation>> wordIndex)
+        private static List<Tuple<int, int, Orientation, int>> ValidateCrossings(List<Tuple<int, int>> possibleCrossingPositions, char[,] board, string word, List<WordWithHints> glossary, Dictionary<string, Tuple<int, int, Orientation>> wordIndex)
         {
             var result = new List<Tuple<int, int, Orientation, int>>();
             for(var i = 0; i < possibleCrossingPositions.Count; i++)
@@ -595,7 +595,7 @@ namespace YngveHestem.Crosswords
         /// <param name="orientation"></param>
         /// <param name="score"></param>
         /// <returns></returns>
-        private static bool AdjecentWordsWork(char[,] board, string word, int startX, int startY, List<WordWithInfo> glossary, Orientation orientation, out int score)
+        private static bool AdjecentWordsWork(char[,] board, string word, int startX, int startY, List<WordWithHints> glossary, Orientation orientation, out int score)
         {
             score = 0;
             if (orientation == Orientation.Horizontal)
